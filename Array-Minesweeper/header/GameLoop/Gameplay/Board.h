@@ -2,6 +2,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "../../header/GameLoop/Gameplay/Cell.h"
+#include "../../header/Event/EventPollingManager.h"
 
 using namespace std;
 namespace Gameplay 
@@ -18,8 +20,12 @@ namespace Gameplay
 		sf::Texture boardTexture;
 		sf::Sprite boardSprite;
 
+		Cell* cell;
+
 		void initialize();
 		void initializeBoardImage();
+
+		void createBoard();
 
 	public:
 		Board();
