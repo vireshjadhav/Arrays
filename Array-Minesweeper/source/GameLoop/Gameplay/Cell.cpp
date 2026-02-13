@@ -13,8 +13,7 @@ namespace Gameplay
 		this->position = position;
 		sf::Vector2f cellScreenPosition = getCellScreenPosition(width, height);
 		cell_button = new Button(cell_texture_path, cellScreenPosition, width * slice_count, height);
-		current_cell_state = CellState::HIDDEN;
-		cell_type = CellType::EMPTY;
+		current_cell_state = CellState::OPEN;
 	}
 
 	CellState Cell::getCellState() const { return current_cell_state; }
