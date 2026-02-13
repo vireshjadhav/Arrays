@@ -54,7 +54,7 @@ namespace Gameplay
 		{
 			for (int col = 0; col < numberOfColumns; col++)
 			{
-				cell[row][col] = new Cell(cell_width, cell_height, sf::Vector2i(row, col));
+				cell[row][col] = new Cell(cell_width, cell_height, sf::Vector2i(row, col), this); 
 			}
 		}
 	}
@@ -125,6 +125,29 @@ namespace Gameplay
 
 					cell[row][col]->setCellType(static_cast<CellType>(mines_around));
 				}
+			}
+		}
+	}
+
+	void Board::onCellButtonClick(sf::Vector2i cell_position, MouseButtonType mouse_button_type)
+	{
+		if (mouse_button_type == MouseButtonType::LEFT_MOUSE_BUTTON)
+		{
+			
+		}
+		else if (mouse_button_type == MouseButtonType::RIGHT_MOUSE_BUTTON)
+		{
+
+		}
+	}
+
+	void Board::update(Event::EventPollingManager& event_manager, sf::RenderWindow& window)
+	{
+		for (int row = 0; row < numberOfRows; row++)
+		{
+			for (int col = 0; col < numberOfColumns; col++)
+			{
+				cell[row][col]->update(event_manager, window);
 			}
 		}
 	}

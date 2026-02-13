@@ -30,6 +30,11 @@ namespace Gameplay
 		background_sprite.setColor(sf::Color(255, 255, 255, background_alpha));
 	}
 
+	void GameplayManager::update(Event::EventPollingManager& event_manager, sf::RenderWindow& window)
+	{
+		board->update(event_manager, window);
+	}
+
 	void GameplayManager::render(sf::RenderWindow& window)
 	{
 		window.draw(background_sprite);
