@@ -62,6 +62,7 @@ namespace Gameplay
 	void Board::populatedBoard()
 	{
 		populatedMines();
+		populateCells();
 	}
 
 	void Board::populatedMines()
@@ -80,6 +81,50 @@ namespace Gameplay
 			{
 				cell[x][y]->setCellType(CellType::MINE);
 				++mines_placed;
+			}
+		}
+	}
+
+	int Board::countMinesAround(sf::Vector2i cell_position)
+	{
+		int mine_around = 0;
+
+		for (int a = -1; a <= 1; a++)
+		{
+			for (int b = -1; b <= 1; b++)
+			{
+				// Validate cell's position and check current cell
+				if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(cell_position.x + a, cell_position.y + b)))
+					continue;
+
+				// Check mines
+				if (cell[cell_position.x + a][cell_position.y + b]->getCellType() == CellType::MINE)
+				{
+					mine_around++;
+				}
+			}
+		}
+
+		return mine_around;
+	}
+
+	bool Board::isValidCellPosition(sf::Vector2i cell_positon) {
+		return (cell_positon.x >= 0 && cell_positon.y >= 0 && cell_positon.x < numberOfColumns && cell_positon.y < numberOfRows);
+	}
+
+	void Board::populateCells()
+	{
+
+		for (int row = 0; row < numberOfRows; row++)
+		{
+			for (int col = 0; col < numberOfColumns; col++)
+			{
+				if (cell[row][col]->getCellType() != CellType::MINE)
+				{
+					int mines_around = countMinesAround(sf::Vector2i(row, col));
+
+					cell[row][col]->setCellType(static_cast<CellType>(mines_around));
+				}
 			}
 		}
 	}

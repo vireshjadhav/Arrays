@@ -50,6 +50,10 @@ namespace Gameplay
 
 		void initializeVariables();
 
+		int countMinesAround(sf::Vector2i cell_position);
+		void populateCells();
+		bool isValidCellPosition(sf::Vector2i cell_poision);
+
 	public:
 		Board();
 
