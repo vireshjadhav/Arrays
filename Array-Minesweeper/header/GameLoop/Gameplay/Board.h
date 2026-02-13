@@ -2,10 +2,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <random>
 #include "../../header/GameLoop/Gameplay/Cell.h"
 #include "../../header/Event/EventPollingManager.h"
 
-using namespace std;
+
 namespace Gameplay 
 {
 	class Board 
@@ -20,7 +21,14 @@ namespace Gameplay
 
 		const float horizontalCellPadding = 115.0f;
 		const float verticalCellPadding = 329.0f;
-		
+
+		// Randomization
+		std::default_random_engine randomEngine;
+		std::random_device randomDevice;
+
+		// Number of mines
+		static const int minesCount = 9;
+
 		const std::string boardTexturePath = "Assets/textures/board.png";
 
 		sf::Texture boardTexture;
@@ -35,6 +43,16 @@ namespace Gameplay
 
 		float getCellWidthInBoard() const;
 		float getCellHeightInBoard() const;
+
+		// Populating the Board
+		void populatedBoard();
+		void populatedMines();
+
+		void initializeVariables();
+
+		int countMinesAround(sf::Vector2i cell_position);
+		void populateCells();
+		bool isValidCellPosition(sf::Vector2i cell_poision);
 
 	public:
 		Board();
