@@ -54,6 +54,8 @@ namespace Gameplay
 		void populateCells();
 		bool isValidCellPosition(sf::Vector2i cell_poision);
 
+		void openCell(sf::Vector2i cell_poisition);
+
 	public:
 		Board();
 

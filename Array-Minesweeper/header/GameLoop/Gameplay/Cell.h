@@ -56,6 +56,7 @@ namespace Gameplay
 		void registerCellButtonCallback();
 		void cellButtonCallback(MouseButtonType button_type);
 
+
 	public:
 		Cell(float width, float height, sf::Vector2i position, Board* board);
 		~Cell() = default;
@@ -69,6 +70,9 @@ namespace Gameplay
 
 		sf::Vector2f getCellScreenPosition(int width, int height) const;
 		sf::Vector2i getCellPoisition();
+
+		bool canOpenCell() const;
+		void open();
 
 		void update(Event::EventPollingManager& event_manager, sf::RenderWindow& window);
 

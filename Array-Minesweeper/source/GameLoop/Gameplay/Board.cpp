@@ -133,12 +133,22 @@ namespace Gameplay
 	{
 		if (mouse_button_type == MouseButtonType::LEFT_MOUSE_BUTTON)
 		{
-			
+			Sound::SoundManager::PlaySound(Sound::SoundType::BUTTON_CLICK);
+			openCell(cell_position);
 		}
 		else if (mouse_button_type == MouseButtonType::RIGHT_MOUSE_BUTTON)
 		{
 
 		}
+	}
+
+	void Board::openCell(sf::Vector2i cell_position)
+	{
+		if (!cell[cell_position.x][cell_position.y]->canOpenCell())
+		{
+			return;
+		}
+		cell[cell_position.x][cell_position.y]->open();
 	}
 
 	void Board::update(Event::EventPollingManager& event_manager, sf::RenderWindow& window)

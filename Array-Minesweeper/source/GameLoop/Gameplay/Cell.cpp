@@ -69,12 +69,21 @@ namespace Gameplay
 		board->onCellButtonClick(getCellPoisition(), button_type);
 	}
 
+	void Cell::open()
+	{
+		setCellState(CellState::OPEN);
+	}
+
+	bool Cell::canOpenCell() const
+	{
+		return current_cell_state == CellState::HIDDEN;
+	}
+
 	void Cell::update(Event::EventPollingManager& event_manager, sf::RenderWindow& window)
 	{
 		if (cell_button)
 			cell_button->handleButtonInteractions(event_manager, window);
 	}
-
 
 	void Cell::render(sf::RenderWindow& window)
 	{
