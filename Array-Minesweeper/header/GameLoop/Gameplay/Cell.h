@@ -38,7 +38,7 @@ namespace Gameplay
 		const int slice_count = 12;
 
 		const float cell_top_offset = 274.0f;
-		const float cell_left_offset = 583.0f;
+		const float cell_left_offset = 586.0f;
 
 		const std::string cell_texture_path = "assets/textures/cells.jpeg";
 
@@ -60,7 +60,7 @@ namespace Gameplay
 
 		void setCellTexture();
 
-		sf::Vector2f getCellScreenPosition() const;
+		sf::Vector2f getCellScreenPosition(int width, int height) const;
 
 		void render(sf::RenderWindow& window);
 	};
