@@ -11,6 +11,7 @@ namespace Gameplay
 	void Board::initialize()
 	{
 		initializeBoardImage();
+		createBoard();
 	}
 
 	void Board::initializeBoardImage()
@@ -26,8 +27,26 @@ namespace Gameplay
 		boardSprite.setScale(boardWidth / boardTexture.getSize().x, boardHeight / boardTexture.getSize().y);
 	}
 
+	float Board::getCellWidthInBoard() const
+	{
+		return (boardWidth - horizontalCellPadding) / numberOfColumns;
+	}
+
+	float Board::getCellHeightInBoard() const
+	{
+		return (boardHeight - verticalCellPadding) / numberOfRows;
+	}
+
+	void Board::createBoard()
+	{
+		float cell_width = getCellWidthInBoard();
+		float cell_height = getCellHeightInBoard();
+		cell = new Cell(cell_width, cell_height, sf::Vector2i(0, 0));
+	}
+
 	void Board::render(sf::RenderWindow& window)
 	{
 		window.draw(boardSprite);
+		cell->render(window);
 	}
 }
