@@ -9,6 +9,8 @@
 
 namespace Gameplay 
 {
+	class GameplayManager;
+
 	class Board 
 	{
 	private:
@@ -38,8 +40,11 @@ namespace Gameplay
 
 		Cell* cell[numberOfRows] [numberOfColumns];
 
-		void initialize();
+		GameplayManager* gameplay_manager;
+
+		void initialize(GameplayManager* gameplayManager);
 		void initializeBoardImage();
+		void initializeVariables(GameplayManager* gameplayManager);
 
 		void createBoard();
 
@@ -49,8 +54,6 @@ namespace Gameplay
 		// Populating the Board
 		void populatedBoard();
 		void populatedMines();
-
-		void initializeVariables();
 
 		int countMinesAround(sf::Vector2i cell_position);
 		void populateCells();
@@ -63,10 +66,13 @@ namespace Gameplay
 		void processCellType(sf::Vector2i cell_position);
 		void processEmptyCell(sf::Vector2i cell_position);
 
+		void processMineCell(sf::Vector2i cell_position);
+
 	public:
-		Board();
+		Board(GameplayManager* gameplayManager);
 
 		void onCellButtonClick(sf::Vector2i cell_position, MouseButtonType mouse_button_type);
+		void revealAllMines();
 
 		void update(Event::EventPollingManager& event_manager, sf::RenderWindow& window);
 		void render(sf::RenderWindow& window);
