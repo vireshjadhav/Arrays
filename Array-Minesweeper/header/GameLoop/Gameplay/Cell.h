@@ -74,6 +74,8 @@ namespace Gameplay
 		bool canOpenCell() const;
 		void open();
 
+		void toggleFlag();
+
 		void update(Event::EventPollingManager& event_manager, sf::RenderWindow& window);
 
 		void render(sf::RenderWindow& window);

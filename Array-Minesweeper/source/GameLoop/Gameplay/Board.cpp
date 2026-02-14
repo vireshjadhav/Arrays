@@ -138,7 +138,8 @@ namespace Gameplay
 		}
 		else if (mouse_button_type == MouseButtonType::RIGHT_MOUSE_BUTTON)
 		{
-
+			Sound::SoundManager::PlaySound(Sound::SoundType::BUTTON_CLICK);
+			toggleFlag(cell_position);
 		}
 	}
 
@@ -149,6 +150,13 @@ namespace Gameplay
 			return;
 		}
 		cell[cell_position.x][cell_position.y]->open();
+	}
+
+	void Board::toggleFlag(sf::Vector2i cell_position)
+	{
+		cell[cell_position.x][cell_position.y]->toggleFlag();
+		flaggedCells += (cell[cell_position.x][cell_position.y]->getCellState() == CellState::FLAGGED) ? 1 : -1;
+		
 	}
 
 	void Board::update(Event::EventPollingManager& event_manager, sf::RenderWindow& window)
