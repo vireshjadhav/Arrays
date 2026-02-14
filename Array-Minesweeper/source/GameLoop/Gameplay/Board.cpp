@@ -14,8 +14,6 @@ namespace Gameplay
 		initializeBoardImage();
 		initializeVariables(gameplayManager);
 		createBoard();
-		// Populate the board
-		populatedBoard();
 	}
 
 	void Board::initializeBoardImage()
@@ -35,6 +33,7 @@ namespace Gameplay
 	{
 		this->gameplay_manager = gameplayManager;
 		randomEngine.seed(randomDevice());   //Function to initialize random engine
+		boardState = BoardState::FIRST_CELL; // Start with first cell state
 	}
 
 
@@ -61,13 +60,13 @@ namespace Gameplay
 		}
 	}
 
-	void Board::populatedBoard()
+	void Board::populatedBoard(sf::Vector2i cell_position)
 	{
-		populatedMines();
+		populatedMines(cell_position);
 		populateCells();
 	}
 
-	void Board::populatedMines()
+	void Board::populatedMines(sf::Vector2i first_cell_position)
 	{
 		std::uniform_int_distribution<int> x_dist(0, numberOfColumns - 1);
 		std::uniform_int_distribution<int> y_dist(0, numberOfRows - 1);
@@ -78,6 +77,9 @@ namespace Gameplay
 		{
 			int x = x_dist(randomEngine);
 			int y = y_dist(randomEngine);
+
+			if (isInvalidMinePosition(first_cell_position, x, y))
+				continue;
 
 			if (cell[x][y]->getCellType() != CellType::MINE)
 			{
@@ -150,6 +152,12 @@ namespace Gameplay
 		if (!cell[cell_position.x][cell_position.y]->canOpenCell())
 		{
 			return;
+		}
+
+		if (boardState == BoardState::FIRST_CELL)
+		{
+			populatedBoard(cell_position); // Place mines after first click
+			boardState = BoardState::PLAYING;
 		}
 		processCellType(cell_position);
 	}
@@ -232,6 +240,21 @@ namespace Gameplay
 				}
 			}
 		}
+	}
+
+	bool Board::isInvalidMinePosition(sf::Vector2i first_cell_positon, int x, int y)
+	{
+		return (x == first_cell_positon.x && y == first_cell_positon.y) || cell[x][y]->getCellType() == CellType::MINE;
+	}
+
+	BoardState Board::getBoardStat() const
+	{
+		return boardState;
+	}
+
+	void Board::setBoardState(BoardState state)
+	{
+		boardState = state;
 	}
 
 	void Board::update(Event::EventPollingManager& event_manager, sf::RenderWindow& window)
