@@ -80,7 +80,6 @@ namespace Gameplay
 		bool isInvalidMinePosition(sf::Vector2i first_cell_position, int x, int y);
 
 
-
 	public:
 		Board(GameplayManager* gameplayManager);
 
@@ -90,6 +89,8 @@ namespace Gameplay
 		bool areAllCellsOpen();
 
 		void flagAllMines();
+
+		int getRemainingMinesCount() const;
 
 		BoardState getBoardStat() const;
 		void setBoardState(BoardState state);

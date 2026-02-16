@@ -288,6 +288,11 @@ namespace Gameplay
 		}
 	}
 
+	int Board::getRemainingMinesCount() const
+	{
+		return minesCount - flaggedCells;
+	}
+
 	void Board::update(Event::EventPollingManager& event_manager, sf::RenderWindow& window)
 	{
 		for (int row = 0; row < numberOfRows; row++)

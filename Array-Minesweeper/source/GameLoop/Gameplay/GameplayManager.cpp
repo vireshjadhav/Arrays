@@ -18,6 +18,9 @@ namespace Gameplay
 	{
 		board = new Board(this);
 		remaining_time = max_level_duration; //Start with full time;
+		gameplay_UI = new GameplayUI(this);
+
+		remaining_time = max_level_duration;
 	}
 
 	void GameplayManager::initializeBackgroundImage()
@@ -98,6 +101,11 @@ namespace Gameplay
 		return game_result != GameResult::NONE;
 	}
 
+	int GameplayManager::getRemainingMinesCount() const
+	{
+		return board->getRemainingMinesCount();
+	}
+
 	void GameplayManager::update(EventPollingManager& event_manager, sf::RenderWindow& window)
 	{
 		if (!hasGameEnded())
@@ -108,6 +116,8 @@ namespace Gameplay
 		{
 			processGameResult();
 		}
+
+		gameplay_UI->update(getRemainingMinesCount(), static_cast<int>(remaining_time), event_manager, window);
 	}
 
 	void GameplayManager::render(sf::RenderWindow& window)
@@ -115,5 +125,7 @@ namespace Gameplay
 		window.draw(background_sprite);
 
 		board->render(window);
+
+		gameplay_UI->render(window);
 	}
 }
