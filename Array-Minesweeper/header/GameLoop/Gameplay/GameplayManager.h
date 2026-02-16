@@ -4,11 +4,13 @@
 #include "Board.h"
 #include "../../header/Event/EventPollingManager.h"
 #include "../../header/Time/TimeManager.h"
+#include "../../header/UI/GameplayUI/GameplayUI.h"
 
 namespace Gameplay
 {
 	using namespace Event;
 	using namespace Time;
+	using namespace UI;
 
 	enum class GameResult
 	{
@@ -21,6 +23,8 @@ namespace Gameplay
 	{
 	private:
 		Board* board;
+
+		GameplayUI* gameplay_UI;
 
 		GameResult game_result;
 
@@ -47,8 +51,6 @@ namespace Gameplay
 		void gameWon();
 		void gameLost();
 
-
-
 	public:
 		GameplayManager();
 		~GameplayManager() =  default;
@@ -59,7 +61,11 @@ namespace Gameplay
 
 		void processGameResult();
 
+		int getRemainingMinesCount() const;
+
 		void update(EventPollingManager& event_manager, sf::RenderWindow& window);
 		void render(sf::RenderWindow& window);
+
+		void restartGame();
 	};
 }
