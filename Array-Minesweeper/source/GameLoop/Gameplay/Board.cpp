@@ -288,6 +288,19 @@ namespace Gameplay
 		}
 	}
 
+	void Board::reset()
+	{
+		for (int row = 0; row < numberOfRows; row++)
+		{
+			for (int col = 0; col < numberOfColumns; col++)
+			{
+				cell[row][col]->reset();
+			}
+		}
+		flaggedCells = 0;
+		boardState = BoardState::FIRST_CELL;
+	}
+
 	int Board::getRemainingMinesCount() const
 	{
 		return minesCount - flaggedCells;

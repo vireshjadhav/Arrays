@@ -91,6 +91,12 @@ namespace Gameplay
 		return current_cell_state == CellState::HIDDEN;
 	}
 
+	void Cell::reset()
+	{
+		current_cell_state = CellState::HIDDEN;
+		cell_type = CellType::EMPTY;
+	}
+
 	void Cell::update(Event::EventPollingManager& event_manager, sf::RenderWindow& window)
 	{
 		if (cell_button)

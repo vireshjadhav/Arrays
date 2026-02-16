@@ -29,7 +29,7 @@ namespace UI
 		bool restartBUttonClicked = false;
 
 		// Constants
-		const std::string restartButtonTexturePath = "assets/textures/restart_button";
+		const std::string restartButtonTexturePath = "assets/textures/restart_button.png";
 		const int fontSize = 110;
 
 		const float mineTextTopOffset = 65.0f;

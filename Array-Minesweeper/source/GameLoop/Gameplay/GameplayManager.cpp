@@ -106,6 +106,14 @@ namespace Gameplay
 		return board->getRemainingMinesCount();
 	}
 
+	void GameplayManager::restartGame()
+	{
+		game_result = GameResult::NONE;
+		board->reset();
+		Time::TimeManager::initialize();
+		remaining_time = max_level_duration;
+	}
+
 	void GameplayManager::update(EventPollingManager& event_manager, sf::RenderWindow& window)
 	{
 		if (!hasGameEnded())
