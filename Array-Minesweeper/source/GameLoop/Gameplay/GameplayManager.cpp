@@ -50,6 +50,42 @@ namespace Gameplay
 	{
 		updateRemainingTime(); //Update timer first
 		board->update(eventmanager, window);  //Then update board
+		checkGameWin(); //Check if player has won
+	}
+
+	void GameplayManager::checkGameWin()
+	{
+		if (board->areAllCellsOpen())
+			game_result = GameResult::WON;
+	}
+
+	void GameplayManager::processGameResult()
+	{
+		switch (game_result)
+		{
+		case GameResult::WON:
+			gameWon();
+			break;
+		case GameResult::LOST:
+			gameLost();
+			break;
+		default:
+			break;
+		}
+	}
+
+	void GameplayManager::gameLost()
+	{
+		Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
+		board->setBoardState(BoardState::COMPLETE);
+		board->revealAllMines();
+	}
+
+	void GameplayManager::gameWon()
+	{
+		Sound::SoundManager::PlaySound(Sound::SoundType::GAME_WON);
+		board->flagAllMines();
+		board->setBoardState(BoardState::COMPLETE);
 	}
 
 	void GameplayManager::setGameResult(GameResult gameresult)
@@ -67,6 +103,10 @@ namespace Gameplay
 		if (!hasGameEnded())
 		{
 			handleGameplay(event_manager, window);
+		}
+		else if (board->getBoardStat() != BoardState::COMPLETE)
+		{
+			processGameResult();
 		}
 	}
 

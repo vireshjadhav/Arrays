@@ -44,11 +44,20 @@ namespace Gameplay
 
 		void handleGameplay(EventPollingManager& enventmangaer, sf::RenderWindow& window);
 
+		void gameWon();
+		void gameLost();
+
+
+
 	public:
 		GameplayManager();
 		~GameplayManager() =  default;
 
 		void setGameResult(GameResult gameresult);
+
+		void checkGameWin();
+
+		void processGameResult();
 
 		void update(EventPollingManager& event_manager, sf::RenderWindow& window);
 		void render(sf::RenderWindow& window);

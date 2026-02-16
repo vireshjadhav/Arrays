@@ -224,8 +224,6 @@ namespace Gameplay
 	void Board::processMineCell(sf::Vector2i cell_position)
 	{
 		gameplay_manager->setGameResult(GameResult::LOST); //Game Over
-		Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
-		revealAllMines(); //Show all mines
 	}
 
 	void Board::revealAllMines()
@@ -255,6 +253,39 @@ namespace Gameplay
 	void Board::setBoardState(BoardState state)
 	{
 		boardState = state;
+	}
+
+	bool Board::areAllCellsOpen()
+	{
+		int total_cell = numberOfRows * numberOfColumns;
+		int open_cell = 0;
+
+		for (int row = 0; row < numberOfRows; row++)
+		{
+			for (int col = 0; col < numberOfColumns; col++)
+			{
+				if (cell[row][col]->getCellState() == CellState::OPEN && cell[row][col]->getCellType() != CellType::MINE)
+				{
+					open_cell++;
+				}
+			}
+		}
+
+		return open_cell == (total_cell - minesCount);
+	}
+
+	void Board::flagAllMines()
+	{
+		for (int row = 0; row < numberOfRows; row++)
+		{
+			for (int col = 0; col < numberOfColumns; col++)
+			{
+				if (cell[row][col]->getCellType() == CellType::MINE && cell[row][col]->getCellState() != CellState::FLAGGED)
+				{
+					cell[row][col]->setCellState(CellState::FLAGGED);
+				}
+			}
+		}
 	}
 
 	void Board::update(Event::EventPollingManager& event_manager, sf::RenderWindow& window)

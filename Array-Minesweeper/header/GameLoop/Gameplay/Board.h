@@ -79,11 +79,17 @@ namespace Gameplay
 
 		bool isInvalidMinePosition(sf::Vector2i first_cell_position, int x, int y);
 
+
+
 	public:
 		Board(GameplayManager* gameplayManager);
 
 		void onCellButtonClick(sf::Vector2i cell_position, MouseButtonType mouse_button_type);
 		void revealAllMines();
+
+		bool areAllCellsOpen();
+
+		void flagAllMines();
 
 		BoardState getBoardStat() const;
 		void setBoardState(BoardState state);
